@@ -1,2 +1,7 @@
 # adhoc
-Small ad hoc tools
+Ad hoc tools
+
+## firewire
+
+Utility scripts left over from firewire debugging and development.
+
