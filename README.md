@@ -11,4 +11,12 @@ Generates a [Tabula Recta][tabularecta] that can be used as a password generator
 reference. Inspired by a John Graham-Cumming blog post I can no longer
 find.
 
+## snooze
+
+Old command line program for sleeping in Windows batch files.
+
+## misc
+
+Miscellaneous python scripts.
+
 [tabularecta]: https://en.wikipedia.org/wiki/Tabula_recta
