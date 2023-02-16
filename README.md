@@ -19,4 +19,9 @@ Old command line program for sleeping in Windows batch files.
 
 Miscellaneous python scripts.
 
+## emlpopserver
+
+Serve `.eml` files out of directory so they can be imported into a 
+mail client.
+
 [tabularecta]: https://en.wikipedia.org/wiki/Tabula_recta
