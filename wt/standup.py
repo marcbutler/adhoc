@@ -22,12 +22,12 @@ with open(log, 'r') as f:
                 break
             date_of_last_entry = parse_date(m.group(1))
         elif date_of_last_entry:
-            last_entry.append(l)
+            last_entry.append(l.rstrip())
 
 today = datetime.datetime.now().date()
 if date_of_last_entry == today:
     import clipboard
-    clipboard.copy(''.join(last_entry))
+    clipboard.copy('\n'.join(last_entry))
     print(f'Today\'s standup entry copied to clipboard.')
     sys.exit(0)
 
@@ -42,10 +42,10 @@ with tempfile.NamedTemporaryFile(delete=False) as f:
     writeln('# Standup')
     writeln(f'## {today.strftime(DATE_FMT)}')
 
-    writeln(f'- {date_of_last_entry.strftime("%A")}', 1)
-    i = last_entry.index('Today\n')
-    f.write(bytes(''.join(last_entry[i+1:]), 'utf-8'))
-    writeln('Today')
+    writeln(f'{date_of_last_entry.strftime("%A")}')
+    i = last_entry.index('Today')
+    f.write(bytes('\n'.join(last_entry[i+1:]), 'utf-8'))
+    writeln('\nToday')
     writeln('-')
 
     with open(log, 'r') as history:
