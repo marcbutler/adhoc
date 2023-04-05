@@ -7,11 +7,25 @@ import datetime, os, re, shutil, sys, tempfile
 
 DATE_FMT = '%Y-%m-%d %A'
 
+VALID_PEEPS = '''Etienne,Alex G,sean.watt,vamsi'''.split(',')
+
 log = '/Users/marcbutler/My Drive/Notes/Standup/standup.md'
 assert os.path.exists(log)
 
+
 def parse_date(datestr):
-    return datetime.datetime.strptime(datestr, '%Y-%m-%d %A').date()
+    return datetime.datetime.strptime(datestr, DATE_FMT).date()
+
+
+def format_for_slack(entry):
+    def link(match):
+        ticket = match.group(1).upper()
+        return f'[{ticket}](https://jira.mongodb.org/browse/{ticket})'
+    msg = ''
+    for line in entry:
+        msg += re.sub(r'((wt|backport)-\d+)', link, line, re.IGNORECASE) + '\n'
+    return msg
+
 
 last_entry = []
 date_of_last_entry = None
@@ -27,7 +41,7 @@ with open(log, 'r') as f:
 today = datetime.datetime.now().date()
 if date_of_last_entry == today:
     import clipboard
-    clipboard.copy('\n'.join(last_entry))
+    clipboard.copy(format_for_slack(last_entry))
     print(f'Today\'s standup entry copied to clipboard.')
     sys.exit(0)
 
