@@ -19,11 +19,14 @@ def parse_date(datestr):
 
 def format_for_slack(entry):
     def link(match):
-        ticket = match.group(1).upper()
+        ticket = match.group(0).upper()
+        prefix, _ = ticket.split('-')
+        if prefix not in ['WT', 'BACKPORT', 'HELP']:
+            return match.group(0)
         return f'[{ticket}](https://jira.mongodb.org/browse/{ticket})'
     msg = ''
     for line in entry:
-        msg += re.sub(r'((wt|backport)-\d+)', link, line, re.IGNORECASE) + '\n'
+        msg += re.sub(r'\b((?:\w+)-\d+)\b', link, line) + '\n'
     return msg
 
 
