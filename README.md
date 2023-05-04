@@ -1,5 +1,5 @@
 # adhoc
-Ad hoc tooling
+Ad hoc tooling and proof of concepts.
 
 ## firewire
 
